@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/openbms-site   # <-- change this to your actual GitHub repo
+  repo: HWadmin-prog/HW-foundation-website   
   branch: main
   base_url: https://openbms-cms-auth.vercel.app   # <-- the OAuth helper URL (set up in Part 2)
   auth_endpoint: api/auth
