@@ -1,0 +1,44 @@
+---
+title: Articles — OpenBMS
+nav: blog
+permalink: /blog/
+---
+{% include "head-open.njk" %}
+
+<div class="page-head">
+  <div class="page-head-bg"><canvas class="netCanvas"></canvas></div>
+  <div class="wrap">
+    <h1>Articles on <em>open BMS</em></h1>
+    <p>Ideas, projects, and honest thinking about open building management. New posts every two weeks.</p>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="wrap">
+    <div class="filter-row">
+      <span class="f-chip on" data-filter="all">All</span>
+      <span class="f-chip" data-filter="imagine">Imagination</span>
+      <span class="f-chip" data-filter="technical">Technical</span>
+      <span class="f-chip" data-filter="project">Project</span>
+      <span class="f-sep"></span>
+      <span class="f-chip" data-filter="equipment">Equipment</span>
+    </div>
+  </div>
+</div>
+
+<div class="pl-list">
+  <div class="wrap">
+    {% for article in collections.articles | reverse %}
+      <a href="{{ article.url }}" class="pl-item" data-r data-tags="{{ article.data.category }} {{ article.data.tags | join(' ') | lower }}">
+        <div class="pl-thumb"><canvas class="thumbCanvas" data-hue="{{ article.data.hue or 140 }}"></canvas><div class="pl-type pt-{{ article.data.category }}">{{ article.data.categoryLabel }}</div></div>
+        <div class="pl-body">
+          <h2>{{ article.data.title }}</h2>
+          <p>{{ article.data.excerpt }}</p>
+          <div class="pl-meta"><span>{{ article.data.categoryLabel }}{% if article.data.subCategory %} · {{ article.data.subCategory }}{% endif %}</span><span>{{ article.data.readTime }} min read</span></div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% include "footer.njk" %}

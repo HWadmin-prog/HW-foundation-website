@@ -1,0 +1,49 @@
+---
+title: "Equipment — OpenBMS"
+nav: "equipment"
+permalink: "/equipment/"
+---
+{% include "head-open.njk" %}
+
+<div class="page-head">
+  <div class="page-head-bg"><canvas class="netCanvas"></canvas></div>
+  <div class="wrap">
+    <h1>The open <em>equipment</em> directory</h1>
+    <p>An independent, plain-English guide to the controllers, frameworks, and hardware that make open building management possible.</p>
+  </div>
+</div>
+
+<section class="equipment" style="border-bottom:none">
+  <div class="wrap">
+    <div class="equip-grid">
+
+      <div class="equip-card" data-r>
+        <div class="equip-visual"><div class="equip-tag tag-open">By Hurtwood</div><canvas class="sedonaCanvas" data-hue="30"></canvas></div>
+        <div class="equip-body">
+          <div class="equip-kicker">Retrofit Hardware · Satrofit</div>
+          <h3>Satrofit Instrumentation Cards</h3>
+          <p>The world's only open source instrumentation hardware as well as a bridge to legacy BMS. Plug straight into legacy Satchwell, Sigma, and Staefa racks and connect them to any modern open BMS over Modbus - no rewiring, no lock-in.</p>
+          <div class="equip-specs"><span class="spec-pill">Modbus RTU</span><span class="spec-pill">Satchwell / Sigma fit</span><span class="spec-pill">Rack mount</span><span class="spec-pill">UK made</span></div>
+          <a href="/shop/" class="equip-link">Shop Satrofit cards</a>
+        </div>
+      </div>
+
+
+      <div class="equip-card" data-r>
+        <div class="equip-visual"><div class="equip-tag tag-open">Open Source</div><canvas class="sedonaCanvas" data-hue="90"></canvas></div>
+        <div class="equip-body">
+          <div class="equip-kicker">Open Framework · Sedona</div>
+          <h3>The Sedona Framework</h3>
+          <p>A fully open-source environment for smart networked control devices. Same wiresheet programming as Niagara — but free, community-supported, and able to run on hardware as cheap as a Raspberry Pi.</p>
+          <div class="equip-specs"><span class="spec-pill">Open source</span><span class="spec-pill">Wiresheet</span><span class="spec-pill">BACnet · Modbus</span><span class="spec-pill">Runs on a Pi</span></div>
+          <a href="/blog/" class="equip-link">Why Sedona matters</a>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "footer.njk" %}

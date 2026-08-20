@@ -1,0 +1,54 @@
+---
+pagination:
+  data: collections.articles
+  size: 1
+  alias: article
+permalink: "/blog/{{ article.fileSlug }}/"
+eleventyComputed:
+  title: "{{ article.data.title }} — OpenBMS"
+  nav: "blog"
+---
+{% include "head-open.njk" %}
+
+<div class="art-head">
+  <div class="art-kicker">
+    <span class="art-type pt-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+    <span class="art-date">{{ article.data.date }}</span>
+  </div>
+  <h1>{{ article.data.title }}</h1>
+  <p class="sub">{{ article.data.excerpt }}</p>
+  <div class="art-meta">
+    <div class="art-author">
+      <div class="art-avatar">{{ article.data.authorInitial or "K" }}</div>
+      <div><div class="art-author-name">{{ article.data.author or "Kevin Williams" }}</div><div class="art-author-role">{{ article.data.authorRole or "Hurtwood Ltd — BMS Strategy" }}</div></div>
+    </div>
+    <span class="art-stat">{{ article.data.readTime }} min read</span>
+    <span class="art-stat">{{ article.data.categoryLabel }}</span>
+    {% if article.data.subCategory %}<span class="art-stat">{{ article.data.subCategory }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="art-hero"><div class="art-hero-inner"><canvas class="netCanvas"></canvas></div></div>
+
+<div class="art-wrap">
+  <div class="art-content" data-r>
+    {{ article.templateContent | safe }}
+  </div>
+
+  <aside class="art-side" data-r>
+    <div class="side-block">
+      <h4>Tags</h4>
+      {% for tag in article.data.tags %}<a href="/blog/" class="side-tag">{{ tag }}</a>{% endfor %}
+    </div>
+    <div class="equip-card" style="border-radius:var(--r)">
+      <div class="equip-body" style="padding:1.5rem">
+        <div class="equip-kicker">Satrofit by Hurtwood</div>
+        <h3 style="font-size:1.1rem">Retrofit without the strip-out</h3>
+        <p style="font-size:.8rem">Plug legacy Satchwell &amp; Sigma racks into any open BMS over Modbus.</p>
+        <a href="/shop/" class="equip-link">Shop Satrofit</a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+{% include "footer.njk" %}

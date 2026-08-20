@@ -1,0 +1,148 @@
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="logo"><span class="mark">OB</span>OpenBMS</div>
+      <p>Reimagining what buildings can be with open-source controllers and equipment. A Hurtwood Ltd publication.</p>
+    </div>
+    <div class="foot-col"><h4>Explore</h4><a href="/blog/">All articles</a><a href="/explorer/">Building explorer</a><a href="/equipment/">Equipment</a><a href="/shop/">Shop Satrofit</a></div>
+    <div class="foot-col"><h4>Frameworks</h4><a href="/blog/">Niagara &amp; JACE</a><a href="/blog/">Sedona Framework</a><a href="/shop/">Satrofit retrofit</a><a href="/blog/">Open protocols</a></div>
+    <div class="foot-col"><h4>Hurtwood</h4><a href="https://www.hurtwood.org.uk" target="_blank" rel="noopener">hurtwood.org.uk</a><a href="mailto:kevin@hurtwood.org.uk">kevin@hurtwood.org.uk</a><a href="tel:+441249248117">+44 (0)1249 248 117</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; OpenBMS 2025 — a Hurtwood Ltd publication</span>
+    <a href="https://www.hurtwood.org.uk" class="hurtwood-link" target="_blank" rel="noopener">Powered by Hurtwood ↗</a>
+  </div>
+</footer>
+<script>
+/* ══════════════════════════════════════════════════════
+   OpenBMS — shared interactions & canvas helpers
+   ══════════════════════════════════════════════════════ */
+
+/* ── Theme-aware canvas bg ── */
+function CBG(){return document.body.classList.contains('light')?'#ece8df':'#161c16';}
+function CBG2(){return document.body.classList.contains('light')?'#e3ded3':'#0f1410';}
+
+/* ── Ambient gradient canvas (thumbnails / cards) ── */
+function ambientCanvas(cv,hue){
+  const G=cv.getContext('2d');
+  function sz(){const d=Math.min(window.devicePixelRatio||1,2);cv._cw=cv.offsetWidth;cv._ch=cv.offsetHeight;cv.width=cv._cw*d;cv.height=cv._ch*d;G.setTransform(d,0,0,d,0,0);}sz();new ResizeObserver(sz).observe(cv);
+  (function draw(){const W=cv._cw,H=cv._ch,t=performance.now()*.001;
+    G.clearRect(0,0,W,H);G.fillStyle=CBG();G.fillRect(0,0,W,H);
+    for(let i=0;i<3;i++){const cx=W*(.25+i*.25)+Math.sin(t*.35+i)*20,cy=H*(.4+i*.1)+Math.cos(t*.4+i)*15,gr=G.createRadialGradient(cx,cy,0,cx,cy,Math.min(W,H)*.55);
+      gr.addColorStop(0,'hsla('+hue+',50%,45%,.18)');gr.addColorStop(1,'transparent');G.fillStyle=gr;G.fillRect(0,0,W,H);}
+    for(let i=0;i<5;i++){const dx=W*(.15+i*.18)+Math.sin(t*.5+i)*15,dy=H*(.3+i*.12)+Math.cos(t*.4+i*.8)*12;
+      G.beginPath();G.arc(dx,dy,1.5,0,6.28);G.fillStyle='hsla('+hue+',55%,60%,'+(.25+Math.sin(t+i)*.1)+')';G.fill();}
+    requestAnimationFrame(draw);})();
+}
+
+/* ── Wiresheet block animation (Sedona / Satrofit cards) ── */
+function wiresheetCanvas(cv,hue){
+  const G=cv.getContext('2d');
+  function sz(){const d=Math.min(window.devicePixelRatio||1,2);cv._cw=cv.offsetWidth;cv._ch=cv.offsetHeight;cv.width=cv._cw*d;cv.height=cv._ch*d;G.setTransform(d,0,0,d,0,0);}sz();new ResizeObserver(sz).observe(cv);
+  const blocks=[];for(let i=0;i<5;i++)blocks.push({x:0.15+Math.random()*0.6,y:0.2+i*0.15,ph:Math.random()*6.28});
+  (function draw(){const W=cv._cw,H=cv._ch,t=performance.now()*.001;
+    G.clearRect(0,0,W,H);G.fillStyle=CBG();G.fillRect(0,0,W,H);
+    for(let i=0;i<blocks.length-1;i++){const a=blocks[i],b=blocks[i+1];const ax=W*a.x+30,ay=H*a.y,bx=W*b.x,by=H*b.y;
+      G.beginPath();G.moveTo(ax,ay);G.bezierCurveTo(ax+30,ay,bx-30,by,bx,by);G.strokeStyle='hsla('+hue+',50%,55%,.2)';G.lineWidth=1;G.stroke();
+      const prog=((t*0.5+i*0.4)%1),t2=prog;
+      const mx=Math.pow(1-t2,3)*ax+3*Math.pow(1-t2,2)*t2*(ax+30)+3*(1-t2)*t2*t2*(bx-30)+t2*t2*t2*bx;
+      const my=Math.pow(1-t2,3)*ay+3*Math.pow(1-t2,2)*t2*ay+3*(1-t2)*t2*t2*by+t2*t2*t2*by;
+      G.beginPath();G.arc(mx,my,2,0,6.28);G.fillStyle='hsla('+hue+',55%,60%,'+(Math.sin(prog*3.14)*.8)+')';G.fill();}
+    blocks.forEach((b,i)=>{const bx=W*b.x,by=H*b.y,glow=Math.sin(t*1.5+b.ph)*0.15+0.2;
+      G.fillStyle='hsla('+hue+',40%,30%,'+glow+')';G.fillRect(bx,by-9,30,18);
+      G.strokeStyle='hsla('+hue+',50%,55%,.4)';G.lineWidth=1;G.strokeRect(bx,by-9,30,18);
+      G.beginPath();G.arc(bx,by,2,0,6.28);G.fillStyle='hsla('+hue+',55%,60%,.6)';G.fill();
+      G.beginPath();G.arc(bx+30,by,2,0,6.28);G.fillStyle='hsla('+hue+',55%,60%,.6)';G.fill();});
+    requestAnimationFrame(draw);})();
+}
+
+/* ── Floating network canvas (hero / page headers) ── */
+function networkCanvas(c){
+  const G=c.getContext('2d');let W,H,nodes=[],parts=[];
+  function sz(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+  sz();window.addEventListener('resize',sz);
+  for(let i=0;i<70;i++)nodes.push({x:Math.random()*2200,y:Math.random()*1400,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*2.2+1,ph:Math.random()*6.28,hub:i<8});
+  (function tick(){const t=performance.now()*.001;G.clearRect(0,0,W,H);
+    const lh=document.body.classList.contains('light')?'74,122,30':'168,224,95';
+    for(let i=0;i<nodes.length;i++){const a=nodes[i];a.x+=a.vx;a.y+=a.vy;
+      if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+      for(let j=i+1;j<nodes.length;j++){const b=nodes[j],d=Math.hypot(b.x-a.x,b.y-a.y);
+        if(d<170){G.beginPath();G.moveTo(a.x,a.y);G.lineTo(b.x,b.y);G.strokeStyle='rgba('+lh+','+((1-d/170)*.13)+')';G.lineWidth=.7;G.stroke();}}}
+    nodes.forEach(n=>{const g=Math.sin(t*1.2+n.ph)*.3+.7;
+      G.beginPath();G.arc(n.x,n.y,n.hub?n.r*2.4:n.r,0,6.28);G.fillStyle='rgba('+lh+','+(.5*g)+')';G.fill();
+      if(n.hub){G.beginPath();G.arc(n.x,n.y,n.r*2.4+9,0,6.28);G.strokeStyle='rgba('+lh+','+(.1*g)+')';G.lineWidth=1;G.stroke();}});
+    if(Math.random()<.2&&parts.length<24){const a=nodes[0|Math.random()*nodes.length],b=nodes[0|Math.random()*nodes.length];
+      if(a!==b&&Math.hypot(b.x-a.x,b.y-a.y)<180)parts.push({ax:a.x,ay:a.y,bx:b.x,by:b.y,t:0,s:.009+Math.random()*.01});}
+    parts=parts.filter(p=>{p.t+=p.s;if(p.t>=1)return false;const x=p.ax+(p.bx-p.ax)*p.t,y=p.ay+(p.by-p.ay)*p.t;
+      G.beginPath();G.arc(x,y,2.2,0,6.28);G.fillStyle='rgba('+lh+','+(Math.sin(p.t*3.14)*.7)+')';G.fill();return true;});
+    requestAnimationFrame(tick);})();
+}
+
+/* ── PCB circuit canvas (shop product cards) ── */
+function circuitCanvas(cv,hue){
+  const G=cv.getContext('2d');
+  function sz(){const d=Math.min(window.devicePixelRatio||1,2);cv._cw=cv.offsetWidth;cv._ch=cv.offsetHeight;cv.width=cv._cw*d;cv.height=cv._ch*d;G.setTransform(d,0,0,d,0,0);}sz();new ResizeObserver(sz).observe(cv);
+  const traces=[];for(let i=0;i<8;i++){const pts=[],py=20+Math.random()*160;for(let j=0;j<5;j++)pts.push({x:15+j*70+Math.random()*15-7,y:py+Math.random()*25-12});traces.push({pts,ph:Math.random()*6.28});}
+  (function draw(){const W=cv._cw,H=cv._ch,t=performance.now()*.001;
+    G.clearRect(0,0,W,H);G.fillStyle=CBG();G.fillRect(0,0,W,H);
+    traces.forEach(tr=>{G.beginPath();G.moveTo(tr.pts[0].x*W/300,tr.pts[0].y*H/200);
+      for(let j=1;j<tr.pts.length;j++){const p=tr.pts[j],pr=tr.pts[j-1];G.lineTo(pr.x*W/300+(p.x-pr.x)*W/300,pr.y*H/200);G.lineTo(p.x*W/300,p.y*H/200);}
+      G.strokeStyle='hsla('+hue+',35%,40%,.14)';G.lineWidth=1.2;G.stroke();
+      const prog=(t*.25+tr.ph)%1,idx=Math.floor(prog*(tr.pts.length-1)),frac=prog*(tr.pts.length-1)-idx;
+      if(idx<tr.pts.length-1){const a=tr.pts[idx],b=tr.pts[idx+1],sx=(a.x+(b.x-a.x)*frac)*W/300,sy=(a.y+(b.y-a.y)*frac)*H/200;G.beginPath();G.arc(sx,sy,2.5,0,6.28);G.fillStyle='hsla('+hue+',45%,35%,.55)';G.fill();}});
+    requestAnimationFrame(draw);})();
+}
+
+/* ── INIT on every page ── */
+document.addEventListener('DOMContentLoaded',function(){
+
+  /* Theme toggle */
+  const btn=document.getElementById('themeToggle');
+  try{if(localStorage.getItem('obms-theme')==='light')document.body.classList.add('light');}catch(e){}
+  if(btn)btn.addEventListener('click',()=>{
+    document.body.classList.toggle('light');
+    try{localStorage.setItem('obms-theme',document.body.classList.contains('light')?'light':'dark');}catch(e){}
+  });
+
+  /* Background transparency slider */
+  const slider=document.getElementById('bgSlider');
+  if(slider){
+    function apply(v){const scrim=0.95-(v/100)*0.83;document.documentElement.style.setProperty('--scrim',scrim.toFixed(3));}
+    try{const saved=localStorage.getItem('obms-bg');if(saved!==null)slider.value=saved;}catch(e){}
+    apply(+slider.value);
+    slider.addEventListener('input',()=>{apply(+slider.value);try{localStorage.setItem('obms-bg',slider.value);}catch(e){}});
+  }
+
+  /* Auto-wire canvases by class */
+  document.querySelectorAll('.thumbCanvas').forEach(c=>ambientCanvas(c,+(c.dataset.hue||140)));
+  document.querySelectorAll('.sedonaCanvas').forEach(c=>wiresheetCanvas(c,+(c.dataset.hue||90)));
+  document.querySelectorAll('.pc').forEach(c=>circuitCanvas(c,+(c.dataset.hue||120)));
+  document.querySelectorAll('.netCanvas').forEach(c=>networkCanvas(c));
+
+  /* Chips */
+  document.querySelectorAll('.chip').forEach(ch=>{ch.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));ch.classList.add('active');});});
+
+  /* Filter chips (blog) */
+  document.querySelectorAll('.f-chip').forEach(chip=>{chip.addEventListener('click',()=>{
+    document.querySelectorAll('.f-chip').forEach(c=>c.classList.remove('on'));chip.classList.add('on');
+    const f=chip.dataset.filter;
+    document.querySelectorAll('.pl-item').forEach(item=>{
+      if(f==='all'||(item.dataset.tags||'').includes(f)){item.classList.remove('hidden');}else{item.classList.add('hidden');}
+    });
+  });});
+
+  /* Scroll reveal — robust: reveals on intersect, with a safety fallback */
+  const revEls=document.querySelectorAll('[data-r]');
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const p=e.target.closest('.post-grid,.equip-grid,.shop-grid,.info-grid,.pl-list');const d=p?Array.from(p.children).indexOf(e.target)*80:0;setTimeout(()=>e.target.classList.add('vis'),d);obs.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px -5% 0px'});
+  revEls.forEach(el=>obs.observe(el));
+  // Fallback: if anything is still hidden after 1.2s (e.g. observer quirk / very tall element), reveal it.
+  setTimeout(()=>{revEls.forEach(el=>{if(!el.classList.contains('vis'))el.classList.add('vis');});},1200);
+
+  /* Mobile nav */
+  const mob=document.querySelector('.mob-btn');
+  if(mob)mob.addEventListener('click',()=>{const n=document.querySelector('.nav-links');n.style.display=n.style.display==='flex'?'none':'flex';});
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+---
+title: "OpenBMS — Reimagining buildings with open controls"
+nav: "home"
+permalink: "/"
+---
+{% include "head-open.njk" %}
+
+<section class="hero">
+  <div class="hero-bg"><canvas id="heroCanvas"></canvas></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="pulse"></span>Presented by Hurtwood Ltd</div>
+    <h1>Your Building Management System Should be as <em>Open</em>.<span class="line2">As this View</span></h1>
+    <p class="hero-sub">We explore what becomes possible when buildings escape proprietary lock-in open Hardware, open Instrumentation, open protocols, and honest thinking about the future of building management system.</p>
+    <div class="hero-actions">
+      <a href="/explorer/" class="btn-p">Explore by building type <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#open-vs-closed" class="btn-g">Open vs closed, explained</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="num">£10bn</span><span class="lbl">Potential UK public-sector saving</span></div>
+      <div class="hstat"><span class="num">40yr</span><span class="lbl">Open systems never go obsolete</span></div>
+      <div class="hstat"><span class="num">0</span><span class="lbl">Proprietary lock-in</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div class="mar-track" id="marTrack"></div></div>
+
+<section class="manifesto">
+  <div class="wrap">
+    <p class="manifesto-text" data-r>For decades, building management system has been a <strong>closed shop</strong> - proprietary controllers, locked software, and maintenance contracts that never end. We think there's a <em>better way</em>. When buildings are built on <strong>open foundations</strong>, the people who own them stay in control - of their data, their costs, and their future.</p>
+  </div>
+</section>
+
+<!-- ═══ HOW A BMS WORKS — 3-TIER ═══ -->
+<section class="tiers" id="how-it-works">
+  <div class="wrap">
+    <div class="sec-head" data-r>
+      <div class="sec-eyebrow">Start here · the basics</div>
+      <h2 class="sec-title">How a building management system <em>actually</em> works</h2>
+      <p class="sec-desc">Strip away the jargon and every BMS - open or closed - is just three layers talking to each other. Once you understand these, everything else makes sense.</p>
+    </div>
+
+    <div class="tiers-layout">
+      <!-- Animated 3-tier diagram -->
+      <div class="tiers-diagram" data-r>
+        <canvas id="tiersCanvas"></canvas>
+      </div>
+
+      <!-- Tier explanations -->
+      <div class="tiers-list">
+        <div class="tier-item t-sup" data-r>
+          <div class="tier-num">01</div>
+          <div class="tier-content">
+            <div class="tier-label">Top tier</div>
+            <h3>Supervisor</h3>
+            <p>Among many things, a sophisticated HMI(Human machine interaction). It monitors the whole building and lets you set the parameters - like the target temperature (the <em>setpoint</em>) for each room. It doesn't control anything directly; it tells the controllers what you want.</p>
+            <div class="tier-eg">Dashboards · setpoints · schedules · alarms · trend logs</div>
+          </div>
+        </div>
+        <div class="tier-arrow" data-r><span>commands ↓</span><span>data ↑</span></div>
+        <div class="tier-item t-ctrl" data-r>
+          <div class="tier-num">02</div>
+          <div class="tier-content">
+            <div class="tier-label">Middle tier</div>
+            <h3>Controllers</h3>
+            <p>The brains. Any controller - a JACE, a Sedona device, a Trend IQ - takes the parameters from above and runs the <em>logic</em>: "if the room is below target, open the heating valve." This is where the real decisions happen, second by second.</p>
+            <div class="tier-eg">Logic processing · PID loops · sequencing · this is where Sedona &amp; Niagara live</div>
+          </div>
+        </div>
+        <div class="tier-arrow" data-r><span>commands ↓</span><span>data ↑</span></div>
+        <div class="tier-item t-field" data-r>
+          <div class="tier-num">03</div>
+          <div class="tier-content">
+            <div class="tier-label">Bottom tier</div>
+            <h3>Instrumentation</h3>
+            <p>The hands and senses. <em>Inputs</em> are the sensors reading the real world - temperature, humidity, CO₂. <em>Outputs</em> are the commands going back out - start the boiler, stop the pump, open the damper. This is the layer that physically touches the building.</p>
+            <div class="tier-eg">Temperature sensors · boiler run/stop · valve &amp; damper drives · meters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lead-in to open vs closed -->
+    <div class="tiers-bridge" data-r>
+      <p>Notice the pattern in the axes above: the <strong>more physically connected</strong> a layer is, the <strong>harder and costlier</strong> it is to replace. The supervisor is just software - swap it in an afternoon. The instrumentation is wired into every corner of the building - replacing it is slow and expensive. Physicality and ease of replacement move together, and that single relationship explains where the real cost of a BMS lives. So where do <strong>open</strong> and <strong>closed</strong> come in? At every tier, the parts have to talk to each other - and <em>how</em> they're allowed to talk is the whole game. A <strong>closed system</strong> uses secret languages and locked hardware, so only one company can touch any layer. An <strong>open system</strong> uses shared, published languages (called <em>protocols</em>) like BACnet and Modbus - so any engineer, and any compatible device, can join in.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ovc" id="open-vs-closed">
+  <div class="wrap">
+    <div class="sec-head" data-r>
+      <div class="sec-eyebrow">The core difference</div>
+      <h2 class="sec-title">How open is your BMS<em>!</em></h2>
+      <p class="sec-desc">Very few BMS are fully open - and openness isn't one single thing. Where your system sits across these four dimensions will decide how, and how much, you spend your money.</p>
+    </div>
+
+    <!-- 4 openness types + quadrant graph -->
+    <div class="open-layout">
+      <div class="open-types">
+        <div class="otype" data-r>
+          <div class="otype-num">01</div>
+          <div>
+            <h3>Commercial openness</h3>
+            <p>Can you buy the product directly - or only through an approved reseller who controls access and price?</p>
+          </div>
+        </div>
+        <div class="otype" data-r>
+          <div class="otype-num">02</div>
+          <div>
+            <h3>Communication openness</h3>
+            <p>Does the product speak an open communication protocol (like BACnet or Modbus), or a closed proprietary one? </p>
+            <p><span class="line2">Does the product allow communication with any instrumentation?</span></p>
+          </div>
+        </div>
+        <div class="otype" data-r>
+          <div class="otype-num">03</div>
+          <div>
+            <h3>Software openness</h3>
+            <p>Where can you run the software - and once you've bought it, can you actually use it freely and completely?</p>
+          </div>
+        </div>
+        <div class="otype" data-r>
+          <div class="otype-num">04</div>
+          <div>
+            <h3>Hardware openness</h3>
+            <p>Will your hardware work with any compatible module or controller - same protocol, same software, even a different company?</p>
+            <p>Can you use the hardware you bought even if manufacturer decides to obsolete it?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="open-graph" data-r>
+        <canvas id="opennessCanvas"></canvas>
+      </div>
+    </div>
+
+    <p class="open-foot" data-r>Together, these four factors decide where your BMS sits on the spectrum of openness - and a more open system almost always means more competition, lower cost, and more control in your hands.</p>
+  </div>
+</section>
+
+<!-- ═══ UNDERSTANDING CLOSED SYSTEMS — educational ═══ -->
+<section class="closed-deep" id="closed-systems">
+  <div class="wrap">
+    <div class="sec-head" data-r>
+      <div class="sec-eyebrow">The bit nobody explains</div>
+      <h2 class="sec-title">What "closed" really costs you</h2>
+      <p class="sec-desc">The industry rarely spells this out plainly - so we will. Here is how the biggest names actually work, and where the money goes. No jargon, no spin.</p>
+    </div>
+
+    <div class="cd-grid">
+      <!-- Trend -->
+      <div class="cd-card" data-r>
+        <div class="cd-head">
+          <div class="cd-badge cd-badge-closed">Closed distribution</div>
+          <h3>Trend Controls</h3>
+          <span class="cd-owner">Owned by Honeywell</span>
+        </div>
+        <p class="cd-lead">Trend is one of the most widely installed BMS brands in the UK - you'll find it in hospitals, schools, and government buildings everywhere. But here's what's rarely said out loud:</p>
+        <ul class="cd-points">
+          <li><strong>You can't just buy it.</strong> Trend products are sold almost entirely through a tiered network of approved partners - "Trend Technology Centres" and "Certified Partners." If you're not in the club, the door is largely closed.</li>
+          <li><strong>The tools are gated.</strong> The engineering software, training, and technical support needed to actually work on a Trend system are <em>only</em> available to certified partners — not to the building owner, and not to independent engineers.</li>
+          <li><strong>That means your building depends on them.</strong> Want a change, a fix, or an expansion? You go back to an approved partner. Every time. The latest IQ5 controllers are powerful — but the gate stays shut.</li>
+        </ul>
+        <div class="cd-takeaway">The hardware sits in <em>your</em> building, but the keys to it never leave their network.</div>
+      </div>
+
+      <!-- Niagara -->
+      <div class="cd-card" data-r>
+        <div class="cd-head">
+          <div class="cd-badge cd-badge-mixed">Open protocol · paid licences</div>
+          <h3>Niagara / JACE</h3>
+          <span class="cd-owner">By Tridium</span>
+        </div>
+        <p class="cd-lead">Niagara is the clever one. It's genuinely built on <em>open protocols</em> and an "open distribution model" — a real step forward. But "open" here doesn't mean "free," and that catches people out:</p>
+        <ul class="cd-points">
+          <li><strong>The framework is licensed.</strong> The Niagara software that runs on a JACE is commercial. You pay to license it — and you often pay <em>per device</em> and <em>per point</em> you connect.</li>
+          <li><strong>The drivers cost extra.</strong> Want to talk to a specific protocol or bring on more equipment? That can mean more licences stacked on top.</li>
+          <li><strong>You need to be certified.</strong> Just like Trend, working on Niagara properly requires accredited training and partnership. The protocols are open; the commercial ecosystem around them is not.</li>
+        </ul>
+        <div class="cd-takeaway">Open protocols protect your <em>data</em> — but the licences still shape your <em>budget</em>.</div>
+      </div>
+    </div>
+
+    <!-- Where open source changes the maths -->
+    <div class="cd-contrast" data-r>
+      <div class="cd-contrast-icon">🔓</div>
+      <div class="cd-contrast-text">
+        <h4>Where truly open source changes the maths</h4>
+        <p>This is why frameworks like <strong>Sedona</strong> matter. There's no per-device licence, no certification gate, and no single vendor holding the keys. The same wiresheet logic, running on hardware as cheap as a Raspberry Pi — owned and understood by <em>you</em>. It won't replace Niagara on a 50-building campus tomorrow, but for a huge number of buildings, it quietly removes the toll booth entirely.</p>
+        <a href="/blog/" class="equip-link">Read the Sedona story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SATROFIT RACK — THE SOLUTION ═══ -->
+<section class="rack" id="satrofit-rack">
+  <div class="wrap">
+    <div class="sec-head" data-r>
+      <div class="sec-eyebrow">The solution · keep your controllers</div>
+      <h2 class="sec-title">Not ready to go fully open? Meet the <em>Satrofit Rack</em>.</h2>
+      <p class="sec-desc">If you want — or need — to stay with conventional controllers, there's still a way out of the upgrade trap. One rack, every input and output, any controller you like.</p>
+    </div>
+
+    <div class="rack-layout">
+      <div class="rack-diagram" data-r>
+        <canvas id="rackCanvas"></canvas>
+      </div>
+      <div class="rack-text">
+        <div class="rack-problem" data-r>
+          <h3>The problem</h3>
+          <p>When a controller becomes obsolete and you replace it, the disruption doesn't stop at the controller. The <strong>I/O modules</strong> — the cards every sensor and actuator physically wires into — are usually tied to that specific controller. So when the controller goes, the I/O goes with it.</p>
+          <p>That means pulling out modules, buying new ones, and re-terminating <strong>every single field wire</strong>. On a large panel that's days of skilled labour and serious cost — repeated every time a controller reaches end of life.</p>
+        </div>
+        <div class="rack-solution" data-r>
+          <h3>The Satrofit Rack</h3>
+          <p>One robust rack of <strong>universal I/O</strong> that all your field wiring connects to — <em>once</em>. It gathers every input and drives every output, then presents the whole lot to your controller over open <strong>Modbus</strong>.</p>
+          <p>The controller no longer owns the I/O. So when you want to swap it — for an upgrade, a better price, or a future move to open source — you change <em>one device</em> and leave every field wire exactly where it is.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rack-benefits">
+      <div class="rb" data-r><div class="rb-ico">🔌</div><h4>Wire once, swap forever</h4><p>Field wiring terminates into the rack a single time. Change controllers without touching a single termination.</p></div>
+      <div class="rb" data-r><div class="rb-ico">🔄</div><h4>Controller-agnostic</h4><p>Works with anything that speaks Modbus — Niagara, Sedona, Trend, Siemens. Your choice, today and in ten years.</p></div>
+      <div class="rb" data-r><div class="rb-ico">🛡️</div><h4>Robust &amp; long-lived</h4><p>Industrial-grade hardware built to stay in place for decades — not ripped out and replaced every few years.</p></div>
+      <div class="rb" data-r><div class="rb-ico">📍</div><h4>All I/O in one place</h4><p>Every input and output aggregated in a single rack — cleaner panels, faster diagnostics, far less to go wrong.</p></div>
+      <div class="rb" data-r><div class="rb-ico">⏱️</div><h4>Minimal downtime</h4><p>A controller swap becomes a quick, low-risk job instead of a multi-day rewire of the whole panel.</p></div>
+      <div class="rb" data-r><div class="rb-ico">🌱</div><h4>Genuinely future-proof</h4><p>Whatever the next generation of controllers brings, your rack and your wiring are already ready for it.</p></div>
+    </div>
+
+    <div class="rack-more" data-r>
+      <div class="rack-more-text">
+        <h3>More about Satrofit</h3>
+        <p>Satrofit is Hurtwood's own retrofit I/O system, designed and built in the UK. It plugs straight into legacy <strong>Satchwell BAS, Sigma, Invensys, and Landis &amp; Staefa</strong> racks and reads your existing sensors directly — so there's no need to replace field instrumentation you already trust.</p>
+        <ul class="rack-spec-list">
+          <li><strong>Universal inputs</strong> — voltage, current, and resistance/thermistor on every channel</li>
+          <li><strong>Universal outputs</strong> — 0–10V, latching relay, and 0–20mA current control</li>
+          <li><strong>Open Modbus RTU</strong> — talks to any modern BMS, with no proprietary lock-in</li>
+          <li><strong>Compact &amp; rack-mounted</strong> — dramatically reduces control-panel footprint</li>
+          <li><strong>Satrofit Tool</strong> — live diagnostics and commissioning without master-controller access</li>
+          <li><strong>Reads existing sensors</strong> — keep the instrumentation already in your building</li>
+        </ul>
+        <a href="/shop/" class="btn-p">Satrofit cards <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="rack-more-visual">
+        <canvas class="sedonaCanvas" data-hue="30"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="posts">
+  <div class="wrap">
+    <div class="posts-head" data-r>
+      <div>
+        <div class="sec-eyebrow">Latest thinking</div>
+        <h2 class="sec-title">Recent articles</h2>
+      </div>
+      <a href="/blog/" class="equip-link">All articles</a>
+    </div>
+    <div class="post-grid">
+      <a href="/blog/" class="post-card" data-r>
+        <div class="post-thumb"><canvas class="thumbCanvas" data-hue="210"></canvas><div class="post-type pt-technical">Technical</div></div>
+        <div class="post-body"><h3>Niagara &amp; the JACE: the universal translator for buildings</h3><p>How Tridium's framework connects any protocol, what the JACE 8000 and 9000 actually do, and why it dominates large estates.</p><div class="post-meta"><span>Technical · Equipment</span><span>9 min</span></div></div>
+      </a>
+      <a href="/blog/" class="post-card" data-r>
+        <div class="post-thumb"><canvas class="thumbCanvas" data-hue="90"></canvas><div class="post-type pt-technical">Technical</div></div>
+        <div class="post-body"><h3>The Sedona Framework: open-source control on a Raspberry Pi</h3><p>Wiresheet programming, zero licence fees, and community support. Why Sedona is the people's BMS framework.</p><div class="post-meta"><span>Technical · Equipment</span><span>7 min</span></div></div>
+      </a>
+      <a href="/blog/" class="post-card" data-r>
+        <div class="post-thumb"><canvas class="thumbCanvas" data-hue="25"></canvas><div class="post-type pt-project">Project</div></div>
+        <div class="post-body"><h3>Bristol City Hall: Satchwell Sigma to open controls</h3><p>A real retrofit. What it looked like before, what we changed, and what it saved in year one.</p><div class="post-meta"><span>Project</span><span>6 min</span></div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CROWDFUNDING PROPOSAL ═══ -->
+<section class="fund" id="support">
+  <div class="wrap">
+    <div class="fund-box" data-r>
+      <div class="fund-glow"></div>
+      <div class="fund-content">
+        <div class="sec-eyebrow">Support the mission</div>
+        <h2 class="fund-title">Help us <em>document</em> the open-building movement</h2>
+        <p class="fund-lead">OpenBMS is building something the industry has never had: a plain-English, independent record of how building control really works — and how open technology is changing it. We want to go deeper, and we're asking the community to help fund the next chapter.</p>
+
+        <div class="fund-stories">
+          <div class="fund-story">
+            <div class="fund-story-icon">🌱</div>
+            <h4>The story of Sedona</h4>
+            <p>A full, accessible history of the open-source framework — how it works, who builds on it, and the remarkable things people have done with it, from running a supervisor on a <strong>Raspberry Pi</strong> to community-built controllers that cost a fraction of the incumbents.</p>
+          </div>
+          <div class="fund-story">
+            <div class="fund-story-icon">🔧</div>
+            <h4>The story of iSMA</h4>
+            <p>A deep look at the iSMA controller range and the wider world of affordable, open, Sedona-powered hardware — what it can do, where it fits, and how it's quietly putting real control back in the hands of building owners.</p>
+          </div>
+          <div class="fund-story">
+            <div class="fund-story-icon">📚</div>
+            <h4>The open knowledge base</h4>
+            <p>Tutorials, teardowns, and honest reviews of the controllers, protocols, and tools the industry keeps behind closed doors — so anyone, anywhere, can learn how this works without joining a partner programme.</p>
+          </div>
+        </div>
+
+        <div class="fund-pitch">
+          <p><strong>Every contribution funds independent research and writing</strong> — no vendor sponsorship, no hidden agenda. Just clear, free knowledge for the people who own, run, and care about buildings.</p>
+          <div class="fund-actions">
+            <a href="mailto:kevin@hurtwood.org.uk?subject=Supporting%20OpenBMS" class="btn-p">Back the project <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="#" class="btn-g">Read our research so far</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="explorer">
+  <div class="wrap">
+    <div class="explorer-box" data-r>
+      <div class="explorer-content">
+        <div class="sec-eyebrow">Interactive</div>
+        <h2 class="sec-title" style="font-size:clamp(1.8rem,3vw,2.6rem)">Pick your building.<br>See what's possible.</h2>
+        <p class="sec-desc">Choose a building type and we'll show you a suggested open hardware stack, realistic savings, and the challenges to expect.</p>
+        <div class="building-chips">
+          <span class="chip active">Hospital</span>
+          <span class="chip">School</span>
+          <span class="chip">Museum</span>
+          <span class="chip">Council office</span>
+          <span class="chip">University</span>
+          <span class="chip">Care home</span>
+        </div>
+        <a href="/explorer/" class="btn-p">Open the explorer <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="explorer-visual"><canvas id="explorerCanvas"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section class="shop">
+  <div class="wrap">
+    <div class="shop-box" data-r>
+      <div class="shop-content">
+        <div class="sec-eyebrow">Satrofit by Hurtwood</div>
+        <h2 class="sec-title" style="font-size:clamp(1.8rem,3vw,2.6rem)">Retrofit cards for legacy BMS</h2>
+        <p class="sec-desc">Connect Satchwell, Sigma, Invensys, and Staefa racks to any modern open BMS over Modbus. No lock-in. Ships internationally from the UK.</p>
+        <a href="/shop/" class="btn-p" style="margin-top:1.75rem">Shop Satrofit cards <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="shop-cards">
+        <div class="shop-card"><div><h4>SRC-AUNC-16 UI</h4><p>16 universal inputs — V, mA, thermistor</p></div><span class="price">Enquire</span></div>
+        <div class="shop-card"><div><h4>SRC-AUNC-16 UO</h4><p>16 universal outputs — 0-10V, relay, mA</p></div><span class="price">Enquire</span></div>
+        <div class="shop-card"><div><h4>SRC-AUNC-16 DI/TI</h4><p>Digital &amp; thermistor input card</p></div><span class="price">Enquire</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <div class="nl-box" data-r>
+      <h2>New ideas, <em>every two weeks</em></h2>
+      <p>No sales. No fluff. Just honest thinking about open building management — the frameworks, the hardware, and what's possible. Unsubscribe any time.</p>
+      <form class="nl-form" onsubmit="return false">
+        <input type="email" placeholder="your@email.com">
+        <button class="btn-p" type="submit">Subscribe</button>
+      </form>
+      <p class="nl-note">By subscribing you agree to receive emails from OpenBMS.</p>
+    </div>
+  </div>
+</section>
+
+{% include "footer.njk" %}
